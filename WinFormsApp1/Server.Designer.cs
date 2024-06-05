@@ -30,6 +30,7 @@
         {
             button1 = new Button();
             button2 = new Button();
+            textBox1 = new TextBox();
             SuspendLayout();
             // 
             // button1
@@ -44,30 +45,41 @@
             // 
             // button2
             // 
-            button2.Location = new Point(289, 216);
+            button2.Location = new Point(26, 360);
             button2.Name = "button2";
             button2.Size = new Size(75, 23);
             button2.TabIndex = 1;
-            button2.Text = "button2";
+            button2.Text = "Перед начлом укажите порт ";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(16, 331);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(100, 23);
+            textBox1.TabIndex = 2;
+            textBox1.TextChanged += textBox1_TextChanged;
             // 
             // Server
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(textBox1);
             Controls.Add(button2);
             Controls.Add(button1);
             Name = "Server";
             Text = "Server";
             Load += Server_Load;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private Button button1;
         private Button button2;
+        private TextBox textBox1;
     }
 }

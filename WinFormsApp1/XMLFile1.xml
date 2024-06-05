@@ -1,4 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<person name ="Вася">
-	<user> </user>
-</person>
+<?xml version="1.0" encoding="utf-8"?>
+<ip>
+	<ip name="Иван Иванов">
+		<Age>25</Age>
+		<Programmer>True</Programmer>
+	</ip>
+</ip>

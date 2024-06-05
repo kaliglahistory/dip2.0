@@ -31,9 +31,10 @@
             textBox1 = new TextBox();
             button1 = new Button();
             textBox2 = new TextBox();
-            button2 = new Button();
             textBox3 = new TextBox();
             textBox4 = new TextBox();
+            button2 = new Button();
+            checkBox1 = new CheckBox();
             SuspendLayout();
             // 
             // textBox1
@@ -52,7 +53,6 @@
             button1.TabIndex = 1;
             button1.Text = "Создать бекап";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
             // 
             // textBox2
             // 
@@ -61,15 +61,6 @@
             textBox2.Size = new Size(800, 23);
             textBox2.TabIndex = 2;
             textBox2.Text = "Куда сохранить ?";
-            // 
-            // button2
-            // 
-            button2.Location = new Point(634, 406);
-            button2.Name = "button2";
-            button2.Size = new Size(120, 23);
-            button2.TabIndex = 3;
-            button2.Text = "Создать бекап";
-            button2.UseVisualStyleBackColor = true;
             // 
             // textBox3
             // 
@@ -86,16 +77,36 @@
             textBox4.Size = new Size(120, 23);
             textBox4.TabIndex = 5;
             textBox4.Text = "порт";
-            textBox4.TextChanged += textBox4_TextChanged;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(657, 400);
+            button2.Name = "button2";
+            button2.Size = new Size(75, 23);
+            button2.TabIndex = 6;
+            button2.Text = "нет нахуй";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click_1;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(634, 429);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(152, 19);
+            checkBox1.TabIndex = 7;
+            checkBox1.Text = "Индекатор соеденения";
+            checkBox1.UseVisualStyleBackColor = true;
             // 
             // desctop
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(checkBox1);
+            Controls.Add(button2);
             Controls.Add(textBox4);
             Controls.Add(textBox3);
-            Controls.Add(button2);
             Controls.Add(textBox2);
             Controls.Add(button1);
             Controls.Add(textBox1);
@@ -110,8 +121,9 @@
         private TextBox textBox1;
         private Button button1;
         private TextBox textBox2;
-        private Button button2;
         private TextBox textBox3;
         private TextBox textBox4;
+        private Button button2;
+        private CheckBox checkBox1;
     }
 }

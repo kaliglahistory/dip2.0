@@ -10,9 +10,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.Net.NetworkInformation;
+using System.Net.WebSockets;
+using System.Text.Json;
+
 
 namespace WinFormsApp1
 {
+    
     public partial class Server : Form
     {
         public Server()
@@ -20,23 +25,45 @@ namespace WinFormsApp1
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
-            string Path = @"C:\Users\user\source\repos\dip\DATA.TXT";
-            Random random = new Random();
-            int key = random.Next(0, 100000);
-            // FileInfo file = new FileInfo(Path);
-            string kayin = Convert.ToString(key);
-            File.WriteAllText(Path, kayin);
-            XmlDocument DOX = new XmlDocument();
-            DOX.Load("XMLFile1.xml");
-            XmlElement xRoot = DOX.DocumentElement;
-            XmlElement kays = DOX.CreateElement("data");
-            XmlElement ipElem = DOX.CreateElement("ip");
-            XmlText SAD = DOX.CreateTextNode(kayin);
-            kays.AppendChild(SAD);
-            xRoot.AppendChild(kays);
-            DOX.Save("XMLFile1.xml");
+            //user tom = new user("276.234.121.25");
+            //string json = JsonSerializer.Serialize(tom);
+            //Console.WriteLine(json);
+            //user? restoredPerson = JsonSerializer.Deserialize<user>(json);
+            //Console.WriteLine(restoredPerson?.ip); // Tom
+            using (FileStream fs = new FileStream("user.json", FileMode.OpenOrCreate))
+            {
+                user tom = new user("123.456.789.1");
+                await JsonSerializer.SerializeAsync<user>(fs, tom);
+                Console.WriteLine("Data has been saved to file");
+            }
+
+            // чтение данных
+            using (FileStream fs = new FileStream("user.json", FileMode.OpenOrCreate))
+            {
+                user? person = await JsonSerializer.DeserializeAsync<user>(fs);
+                Console.WriteLine($"Name: {person?.ip} ");
+            }
+
+
+
+            // Работа с XML
+            // string Path = @"C:\Users\user\source\repos\dip\DATA.TXT";
+            // Random random = new Random();
+            // int key = random.Next(0, 100000);
+            // // FileInfo file = new FileInfo(Path);
+            // string kayin = Convert.ToString(key);
+            //// File.WriteAllText(Path, kayin);
+            // XmlDocument DOX = new XmlDocument();
+            // DOX.Load("C:\\Users\\Nick\\Desktop\\dip2.0\\WinFormsApp1\\XMLFile1.xml");
+            // XmlElement xRoot = DOX.DocumentElement;
+            // XmlElement kays = DOX.CreateElement("data");
+            // XmlElement ipElem = DOX.CreateElement("ip");
+            // XmlText SAD = DOX.CreateTextNode(kayin);
+            // kays.AppendChild(SAD);
+            // xRoot.AppendChild(kays);
+            // DOX.Save("XMLFile1.xml");
         }
 
         private void Server_Load(object sender, EventArgs e)
@@ -46,11 +73,17 @@ namespace WinFormsApp1
 
         private async void button2_Click(object sender, EventArgs e)
         {
-            var tcpListener = new TcpListener(IPAddress.Any, 8888);
+            int port = Convert.ToInt32(textBox1.Text); 
+            var tcpListener = new TcpListener(IPAddress.Any, port);
             var words = new Dictionary<string, string>();
+            String host = System.Net.Dns.GetHostName();
+            // Получение ip-адреса.
+            IPAddress[] localIPs = Dns.GetHostAddresses(Dns.GetHostName());
+
             try
             {
                 tcpListener.Start();    // запускаем сервер
+                MessageBox.Show($"Ваш ip и порт  {localIPs[1]} : {port} ");
                 Console.WriteLine("Сервер запущен. Ожидание подключений... ");
 
                 while (true)
@@ -92,6 +125,26 @@ namespace WinFormsApp1
                 tcpListener.Stop();
             }
 
+
+        }
+        class user
+        {
+            public string ip { get; }
+            public int Age { get; set; }
+            public user(string Ip)
+            {
+                ip = Ip;
+                
+            }
+        }
+        static void CopyFolder(string ip, string targetPath) 
+        { 
+        
+        
+        }
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+           
         }
     }
 }

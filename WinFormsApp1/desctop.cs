@@ -18,17 +18,17 @@ namespace WinFormsApp1
             InitializeComponent();
         }
         public string FileName { get; set; }
-        private async void button1_Click(object sender, EventArgs e)
+        private async void button2_Click(object sender, EventArgs e)
 
         {
-            int port = Convert.ToInt32 (textBox4.Text);
+            int port = Convert.ToInt32(textBox4.Text);
             string ip = textBox3.Text;
             string namePC = Dns.GetHostName();
             using TcpClient tcpClient = new TcpClient();
             await tcpClient.ConnectAsync(ip, port);
-
+            IPAddress[] localIPs = Dns.GetHostAddresses(Dns.GetHostName());
             // слова для отправки для получения перевода
-            var words = new string[] { "red", "yellow", "blue" };
+            var words = new string[] { $"red", "yellow", "blue", $"{localIPs[1]}" };
             // получаем NetworkStream для взаимодействия с сервером
             var stream = tcpClient.GetStream();
 
@@ -57,44 +57,84 @@ namespace WinFormsApp1
             // отправляем маркер завершения подключения - END
             await stream.WriteAsync(Encoding.UTF8.GetBytes("END\n"));
             Console.WriteLine("Все сообщения отправлены");
-
-            FolderBrowserDialog ofd = new FolderBrowserDialog();
-            FolderBrowserDialog dialog = new FolderBrowserDialog();
-            // textBox2.Text = =dialog.;
-            if (ofd.ShowDialog() == DialogResult.OK & dialog.ShowDialog() == DialogResult.OK)
+            async void button1_Click(object sender, EventArgs e)
             {
-                //  string[] path1 = ofd.FileName;
-                string sourcePath = ofd.SelectedPath;
-                string targetPath = dialog.SelectedPath;
-                CopyFolder(sourcePath, targetPath);
+                FolderBrowserDialog ofd = new FolderBrowserDialog();
+                FolderBrowserDialog dialog = new FolderBrowserDialog();
+                // textBox2.Text = =dialog.;
+                if (ofd.ShowDialog() == DialogResult.OK & dialog.ShowDialog() == DialogResult.OK)
+                {
+                    //  string[] path1 = ofd.FileName;
+                    string sourcePath = ofd.SelectedPath;
+                    string targetPath = dialog.SelectedPath;
+                    CopyFolder(sourcePath, targetPath);
+                }
+
             }
+            static void CopyFolder(string sourcePath, string targetPath)
+            {
+                // Создаем целевую папку, если она не существует
+                Directory.CreateDirectory(targetPath);
+
+                // Копируем файлы из исходной папки в целевую папку
+                foreach (string filePath in Directory.GetFiles(sourcePath))
+                {
+                    string fileName = Path.GetFileName(filePath);
+                    string destFile = Path.Combine(targetPath, fileName);
+                    File.Copy(filePath, destFile, true); // true позволяет перезаписывать файлы
+                }
+
+                // Копируем подпапки
+                foreach (string directoryPath in Directory.GetDirectories(sourcePath))
+                {
+                    string directoryName = Path.GetFileName(directoryPath);
+                    string destDirectory = Path.Combine(targetPath, directoryName);
+                    CopyFolder(directoryPath, destDirectory); // Рекурсивный вызов для подпапок
+                }
+            }
+
 
         }
-        static void CopyFolder(string sourcePath, string targetPath)
+        
+        private async void button2_Click_1(object sender, EventArgs e)
         {
-            // Создаем целевую папку, если она не существует
-            Directory.CreateDirectory(targetPath);
+            int port = Convert.ToInt32(textBox4.Text);
+            string ip = textBox3.Text;
+            string namePC = Dns.GetHostName();
+            using TcpClient tcpClient = new TcpClient();
+            await tcpClient.ConnectAsync(ip, port);
 
-            // Копируем файлы из исходной папки в целевую папку
-            foreach (string filePath in Directory.GetFiles(sourcePath))
+            // слова для отправки для получения перевода
+            var words = new string[] { "red", "yellow", "blue" };
+            // получаем NetworkStream для взаимодействия с сервером
+            var stream = tcpClient.GetStream();
+
+            // буфер для входящих данных
+            var response = new List<byte>();
+            int bytesRead = 10; // для считывания байтов из потока
+            foreach (var word in words)
             {
-                string fileName = Path.GetFileName(filePath);
-                string destFile = Path.Combine(targetPath, fileName);
-                File.Copy(filePath, destFile, true); // true позволяет перезаписывать файлы
+                // считыванием строку в массив байт
+                // при отправке добавляем маркер завершения сообщения - \n
+                checkBox1.Checked = true;
+                byte[] data = Encoding.UTF8.GetBytes(word + '\n');
+                // отправляем данные
+                await stream.WriteAsync(data);
+
+                // считываем данные до конечного символа
+                while ((bytesRead = stream.ReadByte()) != '\n')
+                {
+                    // добавляем в буфер
+                    response.Add((byte)bytesRead);
+                }
+                var translation = Encoding.UTF8.GetString(response.ToArray());
+                Console.WriteLine($"Слово {word}: {translation}");
+                response.Clear();
             }
 
-            // Копируем подпапки
-            foreach (string directoryPath in Directory.GetDirectories(sourcePath))
-            {
-                string directoryName = Path.GetFileName(directoryPath);
-                string destDirectory = Path.Combine(targetPath, directoryName);
-                CopyFolder(directoryPath, destDirectory); // Рекурсивный вызов для подпапок
-            }
-        }
-
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
-
+            // отправляем маркер завершения подключения - END
+            await stream.WriteAsync(Encoding.UTF8.GetBytes("END\n"));
+            Console.WriteLine("Все сообщения отправлены");
         }
     }
 }
