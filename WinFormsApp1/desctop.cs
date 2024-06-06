@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
 namespace WinFormsApp1
+
 {
     public partial class desctop : Form
     {
@@ -27,8 +28,9 @@ namespace WinFormsApp1
             using TcpClient tcpClient = new TcpClient();
             await tcpClient.ConnectAsync(ip, port);
             IPAddress[] localIPs = Dns.GetHostAddresses(Dns.GetHostName());
+            string host = System.Net.Dns.GetHostName();
             // слова для отправки для получения перевода
-            var words = new string[] { $"red", "yellow", "blue", $"{localIPs[1]}" };
+            var words = new string[] { $"{localIPs[1]}", $"{host}"  };
             // получаем NetworkStream для взаимодействия с сервером
             var stream = tcpClient.GetStream();
 
@@ -57,6 +59,7 @@ namespace WinFormsApp1
             // отправляем маркер завершения подключения - END
             await stream.WriteAsync(Encoding.UTF8.GetBytes("END\n"));
             Console.WriteLine("Все сообщения отправлены");
+         
             async void button1_Click(object sender, EventArgs e)
             {
                 FolderBrowserDialog ofd = new FolderBrowserDialog();
@@ -103,12 +106,12 @@ namespace WinFormsApp1
             string namePC = Dns.GetHostName();
             using TcpClient tcpClient = new TcpClient();
             await tcpClient.ConnectAsync(ip, port);
-
+            IPAddress[] localIPs = Dns.GetHostAddresses(Dns.GetHostName());
+            string host = System.Net.Dns.GetHostName();
             // слова для отправки для получения перевода
-            var words = new string[] { "red", "yellow", "blue" };
+            var words = new string[] { $"{localIPs[1]}", $"{host}" };
             // получаем NetworkStream для взаимодействия с сервером
             var stream = tcpClient.GetStream();
-
             // буфер для входящих данных
             var response = new List<byte>();
             int bytesRead = 10; // для считывания байтов из потока

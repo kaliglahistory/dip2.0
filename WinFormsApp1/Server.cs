@@ -17,7 +17,7 @@ using System.Text.Json;
 
 namespace WinFormsApp1
 {
-    
+
     public partial class Server : Form
     {
         public Server()
@@ -32,19 +32,27 @@ namespace WinFormsApp1
             //Console.WriteLine(json);
             //user? restoredPerson = JsonSerializer.Deserialize<user>(json);
             //Console.WriteLine(restoredPerson?.ip); // Tom
+            var options = new JsonSerializerOptions
+            {
+                AllowTrailingCommas =true
+
+            };
+            string IP = textBox3.Text;
+            string dom = textBox2.Text;
+            int i = 0;
             using (FileStream fs = new FileStream("user.json", FileMode.OpenOrCreate))
             {
-                user tom = new user("123.456.789.1");
-                await JsonSerializer.SerializeAsync<user>(fs, tom);
+                user user5 = new user($"{IP}", $"{dom}");
+                await JsonSerializer.SerializeAsync<user>(fs, user5);
                 Console.WriteLine("Data has been saved to file");
             }
 
             // чтение данных
-            using (FileStream fs = new FileStream("user.json", FileMode.OpenOrCreate))
-            {
-                user? person = await JsonSerializer.DeserializeAsync<user>(fs);
-                Console.WriteLine($"Name: {person?.ip} ");
-            }
+           // using (FileStream fs = new FileStream("user.json", FileMode.OpenOrCreate))
+           // {
+            //    user? person = await JsonSerializer.DeserializeAsync<user>(fs);
+           //     Console.WriteLine($"Name: {person?.ip} ");
+           // }
 
 
 
@@ -73,7 +81,7 @@ namespace WinFormsApp1
 
         private async void button2_Click(object sender, EventArgs e)
         {
-            int port = Convert.ToInt32(textBox1.Text); 
+            int port = Convert.ToInt32(textBox1.Text);
             var tcpListener = new TcpListener(IPAddress.Any, port);
             var words = new Dictionary<string, string>();
             String host = System.Net.Dns.GetHostName();
@@ -83,7 +91,7 @@ namespace WinFormsApp1
             try
             {
                 tcpListener.Start();    // запускаем сервер
-                MessageBox.Show($"Ваш ip и порт  {localIPs[1]} : {port} ");
+                MessageBox.Show($"Ваш ip и порт  {localIPs[1]}:{port} ");
                 Console.WriteLine("Сервер запущен. Ожидание подключений... ");
 
                 while (true)
@@ -102,13 +110,17 @@ namespace WinFormsApp1
                         {
                             // добавляем в буфер
                             response.Add((byte)bytesRead);
+                            await Console.Out.WriteLineAsync(Convert.ToString(response));
                         }
                         var word = Encoding.UTF8.GetString(response.ToArray());
 
                         // если прислан маркер окончания взаимодействия,
                         // выходим из цикла и завершаем взаимодействие с клиентом
                         if (word == "END") break;
+                        if (true)
+                        {
 
+                        }
                         Console.WriteLine($"Запрошен перевод слова {word}");
                         // находим слово в словаре и отправляем обратно клиенту
                         if (!words.TryGetValue(word, out var translation)) translation = "не найдено в словаре";
@@ -130,21 +142,26 @@ namespace WinFormsApp1
         class user
         {
             public string ip { get; }
-            public int Age { get; set; }
-            public user(string Ip)
+            public string domen { get; set; }
+            public user(string Ip, string Domen)
             {
                 ip = Ip;
-                
+                domen = Domen;
             }
         }
-        static void CopyFolder(string ip, string targetPath) 
-        { 
-        
-        
+        static void CopyFolder(string ip, string targetPath)
+        {
+
+
         }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-           
+
+        }
+
+        private void Server_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

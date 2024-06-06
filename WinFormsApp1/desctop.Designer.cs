@@ -80,11 +80,11 @@
             // 
             // button2
             // 
-            button2.Location = new Point(657, 400);
+            button2.Location = new Point(634, 400);
             button2.Name = "button2";
-            button2.Size = new Size(75, 23);
+            button2.Size = new Size(120, 23);
             button2.TabIndex = 6;
-            button2.Text = "нет нахуй";
+            button2.Text = "Тест соеденения ";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click_1;
             // 
