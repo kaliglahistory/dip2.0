@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<clerc>
+	<user name="Вася">
+	<ip>192.168.88.25</ip>
+	<host>biocord-ad</host>
+	                       </user>
+	<user name="Вася3">
+		<ip>192.168.88.25</ip>
+		<host>biocord-ad</host>
+	</user>
+	<user name="Вася2">
+		<ip>192.168.88.25</ip>
+		<host>biocord-ad</host>
+	</user>
+
+
+
+
+
+
+</clerc>
