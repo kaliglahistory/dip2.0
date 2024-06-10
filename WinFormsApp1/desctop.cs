@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
+using System.Transactions;
 namespace WinFormsApp1
 
 {
@@ -58,18 +59,22 @@ namespace WinFormsApp1
 
             // отправляем маркер завершения подключения - END
             await stream.WriteAsync(Encoding.UTF8.GetBytes("END\n"));
-            Console.WriteLine("Все сообщения отправлены");
          
             async void button1_Click(object sender, EventArgs e)
             {
                 FolderBrowserDialog ofd = new FolderBrowserDialog();
                 FolderBrowserDialog dialog = new FolderBrowserDialog();
                 // textBox2.Text = =dialog.;
+                
                 if (ofd.ShowDialog() == DialogResult.OK & dialog.ShowDialog() == DialogResult.OK)
                 {
                     //  string[] path1 = ofd.FileName;
                     string sourcePath = ofd.SelectedPath;
                     string targetPath = dialog.SelectedPath;
+                    //if ()
+                    //{
+                        
+                    //}
                     CopyFolder(sourcePath, targetPath);
                 }
 
@@ -99,7 +104,7 @@ namespace WinFormsApp1
 
         }
         
-        private async void button2_Click_1(object sender, EventArgs e)
+        public async void button2_Click_1(object sender, EventArgs e)
         {
             int port = Convert.ToInt32(textBox4.Text);
             string ip = textBox3.Text;
@@ -131,7 +136,13 @@ namespace WinFormsApp1
                     response.Add((byte)bytesRead);
                 }
                 var translation = Encoding.UTF8.GetString(response.ToArray());
-                Console.WriteLine($"Слово {word}: {translation}");
+                if (translation == "ip  определён")
+                {
+                
+                }
+
+
+
                 response.Clear();
             }
 

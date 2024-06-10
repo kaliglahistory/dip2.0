@@ -45,6 +45,7 @@ namespace WinFormsApp1
                 user user5 = new user($"{IP}", $"{dom}");
                 await JsonSerializer.SerializeAsync<user>(fs, user5);
                 Console.WriteLine("Data has been saved to file");
+                
             }
 
             // чтение данных
@@ -117,18 +118,27 @@ namespace WinFormsApp1
                         // если прислан маркер окончания взаимодействия,
                         // выходим из цикла и завершаем взаимодействие с клиентом
                         if (word == "END") break;
-                        if (true)
-                        {
-
-                        }
+                        
                         Console.WriteLine($"Запрошен перевод слова {word}");
                         // находим слово в словаре и отправляем обратно клиенту
-                        if (!words.TryGetValue(word, out var translation)) translation = "не найдено в словаре";
+                        if (!words.TryGetValue(word, out var itog)) itog = "ip не определён";
+                        if (!words.TryGetValue(word, out var itogfolse)) itogfolse = "ip  определён";
                         // добавляем символ окончания сообщения 
-                        translation += '\n';
+                        itog += '\n';
+                        itogfolse += '\n';
                         // отправляем перевод слова из словаря
-                        await stream.WriteAsync(Encoding.UTF8.GetBytes(translation));
-                        response.Clear();
+                        xmlread xmlreadr = new xmlread();
+                        int result = xmlreadr.xmlreads(word);
+                        if (result  >= 1  )
+                        {
+
+                            await stream.WriteAsync(Encoding.UTF8.GetBytes(itogfolse));
+                            response.Clear();
+                        }
+                        else
+                        {
+                            await stream.WriteAsync(Encoding.UTF8.GetBytes(itog));
+                        }
                     }
                 }
             }
