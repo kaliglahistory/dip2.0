@@ -35,6 +35,9 @@
             textBox4 = new TextBox();
             button2 = new Button();
             checkBox1 = new CheckBox();
+            radioButton2 = new RadioButton();
+            radioButton3 = new RadioButton();
+            radioButton4 = new RadioButton();
             SuspendLayout();
             // 
             // textBox1
@@ -43,7 +46,7 @@
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(803, 23);
             textBox1.TabIndex = 0;
-            textBox1.Text = "Что сохранить ?";
+            textBox1.Text = "Выбирете папку для копировния";
             // 
             // button1
             // 
@@ -60,7 +63,7 @@
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(800, 23);
             textBox2.TabIndex = 2;
-            textBox2.Text = "Куда сохранить ?";
+            textBox2.Text = "Укажите куда сохранять ";
             // 
             // textBox3
             // 
@@ -98,11 +101,47 @@
             checkBox1.Text = "Индекатор соеденения";
             checkBox1.UseVisualStyleBackColor = true;
             // 
+            // radioButton2
+            // 
+            radioButton2.AutoSize = true;
+            radioButton2.Location = new Point(340, 293);
+            radioButton2.Name = "radioButton2";
+            radioButton2.Size = new Size(85, 19);
+            radioButton2.TabIndex = 9;
+            radioButton2.TabStop = true;
+            radioButton2.Text = "Раз в сутки";
+            radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            radioButton3.AutoSize = true;
+            radioButton3.Location = new Point(340, 318);
+            radioButton3.Name = "radioButton3";
+            radioButton3.Size = new Size(97, 19);
+            radioButton3.TabIndex = 10;
+            radioButton3.TabStop = true;
+            radioButton3.Text = "Раз в неделю";
+            radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // radioButton4
+            // 
+            radioButton4.AutoSize = true;
+            radioButton4.Location = new Point(340, 342);
+            radioButton4.Name = "radioButton4";
+            radioButton4.Size = new Size(89, 19);
+            radioButton4.TabIndex = 11;
+            radioButton4.TabStop = true;
+            radioButton4.Text = "Раз в месяц";
+            radioButton4.UseVisualStyleBackColor = true;
+            // 
             // desctop
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(radioButton4);
+            Controls.Add(radioButton3);
+            Controls.Add(radioButton2);
             Controls.Add(checkBox1);
             Controls.Add(button2);
             Controls.Add(textBox4);
@@ -125,5 +164,8 @@
         private TextBox textBox4;
         private Button button2;
         private CheckBox checkBox1;
+        private RadioButton radioButton2;
+        private RadioButton radioButton3;
+        private RadioButton radioButton4;
     }
 }

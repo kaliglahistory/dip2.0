@@ -32,17 +32,31 @@
             button2 = new Button();
             textBox1 = new TextBox();
             textBox2 = new TextBox();
+            dataGridView1 = new DataGridView();
+            id_ = new DataGridViewTextBoxColumn();
+            ip = new DataGridViewTextBoxColumn();
+            date = new DataGridViewTextBoxColumn();
+            tabel = new DataGridViewTextBoxColumn();
+            floder = new DataGridViewTextBoxColumn();
+            button3 = new Button();
+            button4 = new Button();
+            checkBox1 = new CheckBox();
+            dateTimePicker1 = new DateTimePicker();
+            dateTimePicker2 = new DateTimePicker();
             textBox3 = new TextBox();
+            label1 = new Label();
+            label2 = new Label();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // button1
             // 
             button1.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            button1.Location = new Point(695, 389);
+            button1.Location = new Point(695, 366);
             button1.Name = "button1";
             button1.Size = new Size(93, 49);
             button1.TabIndex = 0;
-            button1.Text = "Создать пользователя ";
+            button1.Text = "Дать доступ пользователю";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
@@ -50,11 +64,11 @@
             // 
             button2.Anchor = AnchorStyles.None;
             button2.Font = new Font("Verdana", 9F, FontStyle.Bold);
-            button2.Location = new Point(313, 205);
+            button2.Location = new Point(12, 363);
             button2.Name = "button2";
             button2.Size = new Size(130, 52);
             button2.TabIndex = 1;
-            button2.Text = "Перед начлом укажите порт ";
+            button2.Text = "Для запуска сервера укажити порт";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
@@ -62,7 +76,7 @@
             // 
             textBox1.Anchor = AnchorStyles.None;
             textBox1.Font = new Font("Verdana", 9F, FontStyle.Bold);
-            textBox1.Location = new Point(313, 176);
+            textBox1.Location = new Point(12, 333);
             textBox1.Multiline = true;
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(130, 23);
@@ -71,23 +85,143 @@
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(695, 323);
+            textBox2.Location = new Point(577, 363);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(93, 23);
+            textBox2.Size = new Size(112, 23);
             textBox2.TabIndex = 3;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+            dataGridView1.BorderStyle = BorderStyle.Fixed3D;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { id_, ip, date, tabel, floder });
+            dataGridView1.Dock = DockStyle.Top;
+            dataGridView1.Location = new Point(0, 0);
+            dataGridView1.MinimumSize = new Size(130, 25);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 24;
+            dataGridView1.ScrollBars = ScrollBars.Vertical;
+            dataGridView1.Size = new Size(800, 260);
+            dataGridView1.TabIndex = 5;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            // 
+            // id_
+            // 
+            id_.HeaderText = "Номер действия ";
+            id_.Name = "id_";
+            id_.ReadOnly = true;
+            // 
+            // ip
+            // 
+            ip.HeaderText = "IP отправитель";
+            ip.Name = "ip";
+            ip.ReadOnly = true;
+            // 
+            // date
+            // 
+            date.HeaderText = "Дата бекапа";
+            date.Name = "date";
+            date.ReadOnly = true;
+            // 
+            // tabel
+            // 
+            tabel.HeaderText = "Табельный номер сесси";
+            tabel.Name = "tabel";
+            tabel.ReadOnly = true;
+            // 
+            // floder
+            // 
+            floder.HeaderText = "Размер бекапа";
+            floder.Name = "floder";
+            floder.ReadOnly = true;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(0, 266);
+            button3.Name = "button3";
+            button3.Size = new Size(103, 23);
+            button3.TabIndex = 6;
+            button3.Text = "Назад в меню";
+            button3.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            button4.AutoSize = true;
+            button4.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            button4.Location = new Point(353, 266);
+            button4.Name = "button4";
+            button4.Size = new Size(131, 25);
+            button4.TabIndex = 7;
+            button4.Text = " Выгрузить даных за ";
+            button4.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.ForeColor = SystemColors.ControlText;
+            checkBox1.Location = new Point(25, 421);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(117, 19);
+            checkBox1.TabIndex = 9;
+            checkBox1.Text = "Сервер запущен";
+            checkBox1.TextAlign = ContentAlignment.MiddleCenter;
+            checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
+            // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.Location = new Point(320, 297);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(200, 23);
+            dateTimePicker1.TabIndex = 10;
+            // 
+            // dateTimePicker2
+            // 
+            dateTimePicker2.Location = new Point(320, 326);
+            dateTimePicker2.Name = "dateTimePicker2";
+            dateTimePicker2.Size = new Size(200, 23);
+            dateTimePicker2.TabIndex = 11;
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(695, 352);
+            textBox3.Location = new Point(577, 415);
             textBox3.Name = "textBox3";
-            textBox3.Size = new Size(93, 23);
+            textBox3.Size = new Size(112, 23);
             textBox3.TabIndex = 4;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(625, 345);
+            label1.Name = "label1";
+            label1.Size = new Size(17, 15);
+            label1.TabIndex = 12;
+            label1.Text = "ip";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(612, 400);
+            label2.Name = "label2";
+            label2.Size = new Size(45, 15);
+            label2.TabIndex = 13;
+            label2.Text = "Табель";
             // 
             // Server
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(dateTimePicker2);
+            Controls.Add(dateTimePicker1);
+            Controls.Add(checkBox1);
+            Controls.Add(button4);
+            Controls.Add(button3);
+            Controls.Add(dataGridView1);
             Controls.Add(textBox3);
             Controls.Add(textBox2);
             Controls.Add(textBox1);
@@ -97,6 +231,7 @@
             Text = "Server";
             Load += Server_Load;
             Click += Server_Click;
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -107,6 +242,19 @@
         private Button button2;
         private TextBox textBox1;
         private TextBox textBox2;
+        private DataGridView dataGridView1;
+        private DataGridViewTextBoxColumn id_;
+        private DataGridViewTextBoxColumn ip;
+        private DataGridViewTextBoxColumn date;
+        private DataGridViewTextBoxColumn tabel;
+        private DataGridViewTextBoxColumn floder;
+        private Button button3;
+        private Button button4;
+        private CheckBox checkBox1;
+        private DateTimePicker dateTimePicker1;
+        private DateTimePicker dateTimePicker2;
         private TextBox textBox3;
+        private Label label1;
+        private Label label2;
     }
 }

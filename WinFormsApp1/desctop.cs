@@ -31,7 +31,7 @@ namespace WinFormsApp1
             IPAddress[] localIPs = Dns.GetHostAddresses(Dns.GetHostName());
             string host = System.Net.Dns.GetHostName();
             // слова для отправки для получения перевода
-            var words = new string[] { $"{localIPs[1]}", $"{host}"  };
+            var words = new string[] { $"{localIPs[1]}", $"{host}" };
             // получаем NetworkStream для взаимодействия с сервером
             var stream = tcpClient.GetStream();
 
@@ -59,21 +59,21 @@ namespace WinFormsApp1
 
             // отправляем маркер завершения подключения - END
             await stream.WriteAsync(Encoding.UTF8.GetBytes("END\n"));
-         
+
             async void button1_Click(object sender, EventArgs e)
             {
                 FolderBrowserDialog ofd = new FolderBrowserDialog();
                 FolderBrowserDialog dialog = new FolderBrowserDialog();
-                // textBox2.Text = =dialog.;
-                
+               
+
                 if (ofd.ShowDialog() == DialogResult.OK & dialog.ShowDialog() == DialogResult.OK)
                 {
-                    //  string[] path1 = ofd.FileName;
-                    string sourcePath = ofd.SelectedPath;
-                    string targetPath = dialog.SelectedPath;
+                         
+                    string sourcePath = ofd.SelectedPath; // переменная которя харнит схронемую папку дляя последующиго копривания
+                    string targetPath = dialog.SelectedPath;// переменная которя харнит путь к папке дляя последующиго копривания
                     //if ()
                     //{
-                        
+
                     //}
                     CopyFolder(sourcePath, targetPath);
                 }

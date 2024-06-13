@@ -32,28 +32,17 @@ namespace WinFormsApp1
             //Console.WriteLine(json);
             //user? restoredPerson = JsonSerializer.Deserialize<user>(json);
             //Console.WriteLine(restoredPerson?.ip); // Tom
-            var options = new JsonSerializerOptions
-            {
-                AllowTrailingCommas =true
-
-            };
+            
             string IP = textBox3.Text;
-            string dom = textBox2.Text;
-            int i = 0;
-            using (FileStream fs = new FileStream("user.json", FileMode.OpenOrCreate))
-            {
-                user user5 = new user($"{IP}", $"{dom}");
-                await JsonSerializer.SerializeAsync<user>(fs, user5);
-                Console.WriteLine("Data has been saved to file");
-                
-            }
-
+            string tab = textBox2.Text;
+        
+       
             // чтение данных
-           // using (FileStream fs = new FileStream("user.json", FileMode.OpenOrCreate))
-           // {
+            // using (FileStream fs = new FileStream("user.json", FileMode.OpenOrCreate))
+            // {
             //    user? person = await JsonSerializer.DeserializeAsync<user>(fs);
-           //     Console.WriteLine($"Name: {person?.ip} ");
-           // }
+            //     Console.WriteLine($"Name: {person?.ip} ");
+            // }
 
 
 
@@ -118,7 +107,7 @@ namespace WinFormsApp1
                         // если прислан маркер окончания взаимодействия,
                         // выходим из цикла и завершаем взаимодействие с клиентом
                         if (word == "END") break;
-                        
+
                         Console.WriteLine($"Запрошен перевод слова {word}");
                         // находим слово в словаре и отправляем обратно клиенту
                         if (!words.TryGetValue(word, out var itog)) itog = "ip не определён";
@@ -129,7 +118,7 @@ namespace WinFormsApp1
                         // отправляем перевод слова из словаря
                         xmlread xmlreadr = new xmlread();
                         int result = xmlreadr.xmlreads(word);
-                        if (result  >= 1  )
+                        if (result >= 1)
                         {
 
                             await stream.WriteAsync(Encoding.UTF8.GetBytes(itogfolse));
@@ -170,6 +159,21 @@ namespace WinFormsApp1
         }
 
         private void Server_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void folderBrowserDialog1_HelpRequest(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
 
         }
